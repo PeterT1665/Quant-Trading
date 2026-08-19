@@ -36,6 +36,10 @@ app = [
     "fastapi>=0.111",
     "uvicorn>=0.30",
 ]
+notebook = [
+    "jupyter>=1.0",
+    "matplotlib>=3.9",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/quanttrade"]
@@ -44,6 +48,9 @@ packages = ["src/quanttrade"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Notebooks are for exploration/demo, not shipped code -- don't hold them to
+# the same strictness as src/ (e.g. imports-after-sys.path is normal there).
+extend-exclude = ["notebooks"]
 
 [tool.ruff.lint]
 # E/F = pyflakes+pycodestyle, I = import sorting, N = naming,
