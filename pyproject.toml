@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "quanttrade"
+version = "0.1.0"
+description = "A from-scratch quantitative trading research system: data, ML signals, leak-free backtesting, and a web UI."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "yfinance>=0.2.40",
+    "pyarrow>=16.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.7",
+]
+
+# Optional dependency groups. Install only what a phase needs, e.g.
+#   pip install -e ".[dev]"        # tooling for every phase
+#   pip install -e ".[dev,ml]"     # once we reach the modelling phase
+#   pip install -e ".[dev,app]"    # once we build the UI
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+ml = [
+    "torch>=2.2",
+    "scikit-learn>=1.5",
+]
+app = [
+    "streamlit>=1.36",
+    "fastapi>=0.111",
+    "uvicorn>=0.30",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quanttrade"]
+
+# --- Linting / formatting (ruff) ---
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# E/F = pyflakes+pycodestyle, I = import sorting, N = naming,
+# UP = pyupgrade, B = bugbear, SIM = simplifications.
+select = ["E", "F", "I", "N", "UP", "B", "SIM"]
+
+# --- Static typing (mypy) ---
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+# --- Tests (pytest) ---
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

@@ -1,0 +1,14 @@
+# Default configuration for quanttrade.
+# Override by copying this file and passing its path to load_config().
+
+data:
+  tickers: [AAPL, MSFT, SPY]
+  start: "2015-01-01"
+  end: null            # null => up to today
+  interval: 1d
+  cache_dir: data/cache
+
+backtest:
+  initial_cash: 100000
+  commission: 0.0005   # 5 bps per trade
+  slippage: 0.0005     # 5 bps execution slippage
