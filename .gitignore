@@ -17,8 +17,8 @@ env/
 .mypy_cache/
 
 # Data & model artifacts (never commit large/derived files)
-data/
-!data/.gitkeep
+/data/
+!/data/.gitkeep
 *.parquet
 *.csv
 models/*.pt
